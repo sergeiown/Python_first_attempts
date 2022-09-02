@@ -1,0 +1,51 @@
+user_choice = 'y'
+while user_choice != 'e':
+    # Очищення екрана за допомогою керуючих кодових послідовностей термінала ANSI/VT100
+    # \033 - ASCII escape character
+    # [H - move the cursor to the home position
+    # [J - erases the screen from the current line down to the bottom of the screen
+    print("\033[H\033[J")
+    print('''
+Доступні арифметичні операції:
+
+    +   - додавання; 
+    -   - віднімання;
+    *   - множення;
+    /   - ділення;
+    ^   - зведення в ступінь.
+    ''')
+    try:  # Для кожного з двох введених значень перевіряємо чи є вони числом
+        x = float(input('Введіть перше число: '))
+    except ValueError:
+        print('\nВведене значення не є числом!\nПрограму завершено.')
+        break
+    try:
+        y = float(input('\nВведіть друге число: '))
+    except ValueError:
+        print('\nВведене значення не є числом!\nПрограму завершено.')
+        break
+    operation = input('\nВведіть знак арифметичної операції з доступних: ')
+    result = None
+
+    if operation == '+':
+        result = x + y
+    elif operation == '-':
+        result = x - y
+    elif operation == '*':
+        result = x * y
+    elif operation == '/':  # Перевіряємо на Zero Division та видаємо власне повідомлення.
+        try:
+            x / y == 0
+        except ZeroDivisionError:
+            print('\nНеможливо ділити на нуль!\nПрограму завершено.')
+            break
+        result = x / y
+    elif operation == '^':
+        result = x ** y
+    else:
+        print('\nПодібна арифметична операція не підтримується!')
+        user_choice = input('\nДля повторення натисніть Enter:  ')
+
+    if result is not None:
+        print('\nВідповідь дорівнює: ', result)
+        user_choice = input('\nДля виходу введіть "e", для повторення натисніть Enter:  ')
