@@ -1,30 +1,30 @@
 user_choice = 'y'
 while user_choice != 'e':
-    # Очищення екрана за допомогою керуючих кодових послідовностей термінала ANSI/VT100
+    # Clearing the screen using ANSI/VT100 terminal control code sequences
     # \033 - ASCII escape character
     # [H - move the cursor to the home position
     # [J - erases the screen from the current line down to the bottom of the screen
     print("\033[H\033[J")
     print('''
-Доступні арифметичні операції:
+Available arithmetic operations:
 
-    +   - додавання; 
-    -   - віднімання;
-    *   - множення;
-    /   - ділення;
-    ^   - зведення в ступінь.
+    +   - addition; 
+    -   - subtraction;
+    *   - multiplication;
+    /   - division;
+    ^   - exponentiation.
     ''')
-    try:  # Для кожного з двох введених значень перевіряємо чи є вони числом
-        x = float(input('Введіть перше число: '))
+    try:  # we check whether they are a number For each of the two entered values
+        x = float(input('Enter the first number: '))
     except ValueError:
-        print('\nВведене значення не є числом!\nПрограму завершено.')
+        print('\nThe value you entered is not a number!\nProgram interrupted.')
         break
     try:
-        y = float(input('\nВведіть друге число: '))
+        y = float(input('\nEnter the second number: '))
     except ValueError:
-        print('\nВведене значення не є числом!\nПрограму завершено.')
+        print('\nThe value you entered is not a number!\nProgram interrupted.')
         break
-    operation = input('\nВведіть знак арифметичної операції з доступних: ')
+    operation = input('\nEnter the arithmetic operation from the available: ')
     result = None
 
     if operation == '+':
@@ -33,19 +33,19 @@ while user_choice != 'e':
         result = x - y
     elif operation == '*':
         result = x * y
-    elif operation == '/':  # Перевіряємо на Zero Division та видаємо власне повідомлення.
+    elif operation == '/':  # Checking on 'Zero Division' and make the notice.
         try:
             x / y == 0
         except ZeroDivisionError:
-            print('\nНеможливо ділити на нуль!\nПрограму завершено.')
+            print('\nZero division is impossible!\nProgram interrupted.')
             break
         result = x / y
     elif operation == '^':
         result = x ** y
     else:
-        print('\nПодібна арифметична операція не підтримується!')
-        user_choice = input('\nДля повторення натисніть Enter:  ')
+        print('\nCurrent arithmetic operation is not supported!')
+        user_choice = input('\nPress 'Enter' to repeat:  ')
 
     if result is not None:
-        print('\nВідповідь дорівнює: ', result)
-        user_choice = input('\nДля виходу введіть "e", для повторення натисніть Enter:  ')
+        print('\nThe result is: ', result)
+        user_choice = input('\nType 'e' to exit or press 'Enter' to repeat:  ')
