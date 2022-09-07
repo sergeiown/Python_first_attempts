@@ -44,8 +44,9 @@ Available arithmetic operations:
         result = x ** y
     else:
         print('\nCurrent arithmetic operation is not supported!')
-        user_choice = input('\nPress 'Enter' to repeat:  ')
+        user_choice = input('\nPress "Enter" to repeat:  ')
 
     if result is not None:
-        print('\nThe result is: ', result)
-        user_choice = input('\nType 'e' to exit or press 'Enter' to repeat:  ')
+        print('\nThe result is: ', result, end='')
+        user_choice = input('\nType "e" to exit or press "Enter" to repeat:  ')
+        
