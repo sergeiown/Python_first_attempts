@@ -1,9 +1,30 @@
-user_choice = 'y'
+user_choice = ''
 while user_choice != 'e':
-    # Clearing the screen using ANSI/VT100 terminal control code sequences
-    # \033 - ASCII escape character
-    # [H - move the cursor to the home position
-    # [J - erases the screen from the current line down to the bottom of the screen
+    def add(x, y):
+        return x + y
+
+    def subtract(x, y):
+        return x - y
+
+    def multiply(x, y):
+        return x * y
+
+    def divide(x, y):
+        if y == 0:
+            print('\nZero division is impossible!')
+            return None
+        return x / y
+
+    def exponentiate(x, y):
+        return x ** y
+
+    def input_number(prompt):
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print('\nThe value you entered is not a number!')
+            return None
+
     print("\033[H\033[J")
     print('''
 Available arithmetic operations:
@@ -14,39 +35,32 @@ Available arithmetic operations:
     /   - division;
     ^   - exponentiation.
     ''')
-    try:  # we check whether they are a number For each of the two entered values
-        x = float(input('Enter the first number: '))
-    except ValueError:
-        print('\nThe value you entered is not a number!\nProgram interrupted.')
-        break
-    try:
-        y = float(input('\nEnter the second number: '))
-    except ValueError:
-        print('\nThe value you entered is not a number!\nProgram interrupted.')
-        break
+
+    x = input_number('Enter the first number: ')
+    y = input_number('Enter the second number: ')
+
+    if x is None or y is None:
+        user_choice = input('\nPress "Enter" to repeat:  ')
+        continue
+
     operation = input('\nEnter the arithmetic operation from the available: ')
     result = None
 
     if operation == '+':
-        result = x + y
+        result = add(x, y)
     elif operation == '-':
-        result = x - y
+        result = subtract(x, y)
     elif operation == '*':
-        result = x * y
-    elif operation == '/':  # Checking on 'Zero Division' and make the notice.
-        try:
-            x / y == 0
-        except ZeroDivisionError:
-            print('\nZero division is impossible!\nProgram interrupted.')
-            break
-        result = x / y
+        result = multiply(x, y)
+    elif operation == '/':
+        result = divide(x, y)
     elif operation == '^':
-        result = x ** y
+        result = exponentiate(x, y)
     else:
         print('\nCurrent arithmetic operation is not supported!')
         user_choice = input('\nPress "Enter" to repeat:  ')
 
     if result is not None:
-        print('\nThe result is: ', result, end='')
-        user_choice = input('\nType "e" to exit or press "Enter" to repeat:  ')
-        
+        print('\nThe result is: {:.2f}'.format(result), end='')
+        user_choice = input(
+            '\n\nType "e" to exit or press "Enter" to repeat:  ')
