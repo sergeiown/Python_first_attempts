@@ -19,19 +19,19 @@ class TrafficLight:
         self.root.geometry(f"200x500+{x_position}+{y_position}")
 
         self.current_color = None
-        self.colors = ["red", "yellow", "green"]
+        self.colors = ["#FF0000", "#FFFF00", "#00FF00"]
 
-        self.label = tk.Label(
+        self.label = ttk.Label(
             root, text="Traffic Light", font=("Helvetica", 16))
         self.label.place(relx=0.5, rely=0.1, anchor="center")
 
-        # Changed height to 300
         self.canvas = tk.Canvas(root, width=100, height=300)
         self.canvas.place(relx=0.5, rely=0.5, anchor="center")
 
-        self.button = tk.Button(root, text="Change Color",
-                                command=self.change_color)
-        self.button.place(relx=0.5, rely=0.9, anchor="center")
+        self.button = ttk.Button(root, text="Change Color".upper(),
+                                 command=self.change_color)
+        self.button.place(relx=0.5, rely=0.9,
+                          anchor="center", width=120, height=50)
 
         self.draw_traffic_light()
         self.add_3d_effect()
