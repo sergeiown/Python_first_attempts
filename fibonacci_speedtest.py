@@ -1,5 +1,7 @@
 from datetime import datetime
 import time
+import sys
+import threading
 
 
 def fibonacci_recursion(n):
@@ -21,18 +23,61 @@ def fibonacci_cycle(n):
     return b
 
 
-def main():
-    print('Starting Fibonacci computation...')
-    start_time = datetime.now()
-    print('Result for the number "40" is ', fibonacci_recursion(40))
-    print('---')
-    time.sleep(1)
-    print('Execution time using recursion:', datetime.now() - start_time, 's')
+def print_progress_bar(number):
+    i = 0
+    while i < number:
+        sys.stdout.write('*')
+        sys.stdout.flush()
+        time.sleep(2)
+        i += 1
 
-    print('---')
+
+def main():
+    while True:
+        try:
+            number = int(input('Please enter an integer between 10 and 50: '))
+            if 10 <= number <= 50:
+                break
+            else:
+                print('\nPlease enter a valid number.\n')
+        except ValueError:
+            print('\nPlease enter a valid number.\n')
+
+    print(f'\nYou entered the number: {number}')
+
+    print(
+        '\nPerforming the calculation of the {0}th Fibonacci number...\n'.format(number))
+    start_time = datetime.now()
+
+    progress_thread = threading.Thread(
+        target=print_progress_bar, args=(number,))
+    progress_thread.start()
+
+    result = fibonacci_recursion(number)
+    time.sleep(1)
+    progress_thread.join()
+
+    sys.stdout.write('\n\nResult: ')
+    sys.stdout.flush()
+    print(result, '\n\n---\n')
+
+    execution_time_recursion = (datetime.now() - start_time).total_seconds()
+    minutes = int(execution_time_recursion // 60)
+    seconds = execution_time_recursion % 60
+    formatted_time = f'{minutes} min {seconds:.0f} sec' if minutes > 0 else f'{seconds:.6f} sec'
+    print('Execution time using recursion:', formatted_time, '\n\n---\n')
+
     start_time = datetime.now()
     time.sleep(1)
-    print('Execution time using cycle:', datetime.now() - start_time, 's')
+    result = fibonacci_cycle(number)
+
+    execution_time_cycle = (datetime.now() - start_time).total_seconds()
+    minutes = int(execution_time_cycle // 60)
+    seconds = execution_time_cycle % 60
+    formatted_time = f'{minutes} min {seconds:.0f} sec' if minutes > 0 else f'{seconds:.6f} sec'
+    print('Execution time using cycle:', formatted_time, '\n\n---\n')
+
+    input('Press Enter to continue...')
 
 
 if __name__ == '__main__':
