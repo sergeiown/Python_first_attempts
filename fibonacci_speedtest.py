@@ -25,18 +25,20 @@ def fibonacci_cycle(n):
 
 def print_progress_bar(number):
     i = 0
-    while i < number:
-        sys.stdout.write('*')
+    while i < number * 200:
+        sys.stdout.write('.')
         sys.stdout.flush()
-        time.sleep(2)
         i += 1
+        if i % 58 == 0:
+            sys.stdout.write('\r')
+            sys.stdout.flush()
 
 
 def main():
     while True:
         try:
-            number = int(input('Please enter an integer between 10 and 50: '))
-            if 10 <= number <= 50:
+            number = int(input('Please enter an integer between 2 and 42: '))
+            if 2 <= number <= 42:
                 break
             else:
                 print('\nPlease enter a valid number.\n')
@@ -63,7 +65,7 @@ def main():
 
     execution_time_recursion = (datetime.now() - start_time).total_seconds()
     minutes = int(execution_time_recursion // 60)
-    seconds = execution_time_recursion % 60
+    seconds = (execution_time_recursion % 60) - 1
     formatted_time = f'{minutes} min {seconds:.0f} sec' if minutes > 0 else f'{seconds:.6f} sec'
     print('Execution time using recursion:', formatted_time, '\n\n---\n')
 
@@ -73,7 +75,7 @@ def main():
 
     execution_time_cycle = (datetime.now() - start_time).total_seconds()
     minutes = int(execution_time_cycle // 60)
-    seconds = execution_time_cycle % 60
+    seconds = (execution_time_cycle % 60) - 1
     formatted_time = f'{minutes} min {seconds:.0f} sec' if minutes > 0 else f'{seconds:.6f} sec'
     print('Execution time using cycle:', formatted_time, '\n\n---\n')
 
