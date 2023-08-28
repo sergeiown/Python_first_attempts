@@ -11,23 +11,29 @@ def fibonacci_recursion(n):
 
 
 def fibonacci_cycle(n):
-    a, b = 1, 2
+    if n <= 0:
+        return 0
+    if n == 1:
+        return 1
+    a, b = 0, 1
     for i in range(n - 1):
         a, b = b, a + b
-    return a
+    return b
 
 
 def main():
+    print('Starting Fibonacci computation...')
     start_time = datetime.now()
-    print('result for the number "40" is: ', fibonacci_recursion(40), end='\n')
+    print('Result for the number "40":', fibonacci_recursion(40))
     time.sleep(1)
-    print('execution time using recursion: ',
-          datetime.now() - start_time, end='\n')
+    print('Execution time using recursion:', datetime.now() - start_time)
 
+    print('Starting cycle-based Fibonacci computation...')
     start_time = datetime.now()
-    fibonacci_cycle(40)
+    result = fibonacci_cycle(40)
     time.sleep(1)
-    print('execution time using cycle: ', datetime.now() - start_time, end='')
+    print('Result for the number "40":', result)
+    print('Execution time using cycle:', datetime.now() - start_time)
 
 
 if __name__ == '__main__':
