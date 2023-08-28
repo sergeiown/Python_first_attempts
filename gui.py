@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+import subprocess
+import platform
 
 
 class TrafficLight:
@@ -53,10 +55,16 @@ class TrafficLight:
         self.canvas.itemconfig(
             self.circles[self.current_color], fill=self.colors[self.current_color])
 
+        # Play system beep sound when changing color using subprocess
+        if platform.system() == "Windows":
+            subprocess.call(["powershell", "[console]::beep(1000,200)"])
+        else:
+            subprocess.call(["echo", "-e", "\a"])
+
     def add_3d_effect(self):
         for i, circle in enumerate(self.circles):
             x1, y1, x2, y2 = self.canvas.coords(circle)
-            shadow_color = "#CCCCCC"  # Lighter and semi-transparent shadow color
+            shadow_color = "#CCCCCC"
 
             # Create a shadow using a smaller oval
             shadow_oval = self.canvas.create_oval(
@@ -64,6 +72,7 @@ class TrafficLight:
             self.canvas.lower(shadow_oval)  # Send the shadow to the back
 
 
+# Create the root window
 root = tk.Tk()
 traffic_light = TrafficLight(root)
 root.mainloop()
