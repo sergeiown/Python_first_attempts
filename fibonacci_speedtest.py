@@ -24,16 +24,15 @@ def fibonacci_cycle(n):
 def main():
     print('Starting Fibonacci computation...')
     start_time = datetime.now()
-    print('Result for the number "40":', fibonacci_recursion(40))
+    print('Result for the number "40" is ', fibonacci_recursion(40))
+    print('---')
     time.sleep(1)
-    print('Execution time using recursion:', datetime.now() - start_time)
+    print('Execution time using recursion:', datetime.now() - start_time, 's')
 
-    print('Starting cycle-based Fibonacci computation...')
+    print('---')
     start_time = datetime.now()
-    result = fibonacci_cycle(40)
     time.sleep(1)
-    print('Result for the number "40":', result)
-    print('Execution time using cycle:', datetime.now() - start_time)
+    print('Execution time using cycle:', datetime.now() - start_time, 's')
 
 
 if __name__ == '__main__':
